@@ -1,9 +1,9 @@
 <script setup>
-import FabricCanvas from "@/components/FabricCanvas.vue";
+import Canvas from "@/components/Canvas.vue";
 </script>
 
 <template>
   <main>
-    <FabricCanvas />
+    <Canvas />
   </main>
 </template>
