@@ -28,8 +28,8 @@ export default {
     ToolbarItem
   },
   mounted() {
-    const ref = this.$refs.can;
-    const canvas = new fabric.Canvas(ref);
+    //const ref = this.$refs.can;
+    //const canvas = new fabric.Canvas(ref);
   },
   methods: {
     handleToolSelection(tool) {
