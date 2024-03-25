@@ -20,7 +20,7 @@
 <script>
 import Toolbar from './Toolbar.vue';
 import ToolbarItem from './ToolbarItem.vue';
-import { fabric } from 'fabric';
+//import { fabric } from 'fabric';
 
 export default {
   components: {
