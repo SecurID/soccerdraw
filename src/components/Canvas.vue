@@ -27,6 +27,18 @@
         <toolbar-item @tool-selected="selectTool('line')">
           <span>Line</span>
         </toolbar-item>
+        <toolbar-item @tool-selected="selectTool('goal-r')">
+          <span>Goal (right)</span>
+        </toolbar-item>
+        <toolbar-item @tool-selected="selectTool('goal-l')">
+          <span>Goal (left)</span>
+        </toolbar-item>
+        <toolbar-item @tool-selected="selectTool('minigoal-r')">
+          <span>Minigoal (right)</span>
+        </toolbar-item>
+        <toolbar-item @tool-selected="selectTool('minigoal-l')">
+          <span>Minigoal (left)</span>
+        </toolbar-item>
         <!--<div>
           <label for="color" class="mr-2">Color:</label>
           <input
@@ -46,6 +58,10 @@ import '../classes/cross.js';
 import Toolbar from './Toolbar.vue';
 import ToolbarItem from './ToolbarItem.vue';
 import {fabric} from 'fabric';
+import goal_r from '../assets/svg/goal-right.svg?raw'
+import goal_l from '../assets/svg/goal-left.svg?raw'
+import minigoal_r from '../assets/svg/minigoal-right.svg?raw'
+import minigoal_l from '../assets/svg/minigoal-left.svg?raw'
 
 export default {
   components: {
@@ -98,7 +114,7 @@ export default {
         } else {
           const endPoint = new fabric.Point(e.absolutePointer.x, e.absolutePointer.y);
           const line = new fabric.LineArrow([this.startPoint.x, this.startPoint.y, endPoint.x, endPoint.y], {
-            strokeWidth: this.objectSize / 3,
+            strokeWidth: this.objectSize / 10,
             fill: this.objectColor,
             stroke: this.objectColor,
             originX: 'center',
@@ -142,6 +158,38 @@ export default {
             originX: 'center', // Set the horizontal origin of rotation and positioning to the center
             originY: 'center', // Set the vertical origin of rotation and positioning to the center
           });
+        } else if (this.currentTool === 'goal-r') {
+          fabric.loadSVGFromString(goal_r, (objects, options) => {
+            this.currentObject = fabric.util.groupSVGElements(objects, options);
+            this.currentObject.set({
+              left: this.startPoint.x, // X-coordinate where the click occurred
+              top: this.startPoint.y, // Y-coordinate where the click occurred
+            })
+          });
+        } else if (this.currentTool === 'goal-l') {
+          fabric.loadSVGFromString(goal_l, (objects, options) => {
+            this.currentObject = fabric.util.groupSVGElements(objects, options);
+            this.currentObject.set({
+              left: this.startPoint.x, // X-coordinate where the click occurred
+              top: this.startPoint.y, // Y-coordinate where the click occurred
+            })
+          });
+        } else if (this.currentTool === 'minigoal-l') {
+          fabric.loadSVGFromString(minigoal_l, (objects, options) => {
+            this.currentObject = fabric.util.groupSVGElements(objects, options);
+            this.currentObject.set({
+              left: this.startPoint.x, // X-coordinate where the click occurred
+              top: this.startPoint.y, // Y-coordinate where the click occurred
+            })
+          });
+        } else if (this.currentTool === 'minigoal-r') {
+          fabric.loadSVGFromString(minigoal_r, (objects, options) => {
+            this.currentObject = fabric.util.groupSVGElements(objects, options);
+            this.currentObject.set({
+              left: this.startPoint.x, // X-coordinate where the click occurred
+              top: this.startPoint.y, // Y-coordinate where the click occurred
+            })
+          });
         }
 
         if (this.currentObject) {
@@ -154,7 +202,7 @@ export default {
         const pointer = this.canvas.getPointer(e.e);
         if (!this.currentObject) {
           this.currentObject = new fabric.LineArrow([this.startPoint.x, this.startPoint.y, pointer.x, pointer.y], {
-            strokeWidth: this.objectSize / 5,
+            strokeWidth: this.objectSize / 10,
             fill: this.objectColor,
             stroke: this.objectColor,
             originX: 'center',
@@ -251,7 +299,7 @@ export default {
         height: 180 // The height of the goal area
       });
 
-// Right Goal Area
+      // Right Goal Area
       const goalAreaRight = new fabric.Rect({
         left: canvasWidth - 60, // Positioned at the right edge minus the goal area width
         top: (canvasHeight / 2) - 90, // Adjust the position based on your canvas dimensions

@@ -29,8 +29,8 @@ fabric.LineArrow = fabric.util.createClass(fabric.Line, {
         ctx.rotate(angle);
 
         // Arrow size relative to stroke width
-        const arrowWidth = this.strokeWidth * 6; // Adjust the multiplier to scale arrow size
-        const arrowLength = this.strokeWidth * 8; // Adjust the multiplier to scale arrow length
+        const arrowWidth = this.strokeWidth * 4; // Adjust the multiplier to scale arrow size
+        const arrowLength = this.strokeWidth * 4; // Adjust the multiplier to scale arrow length
 
         // Draw arrowhead
         ctx.beginPath();
