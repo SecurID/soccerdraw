@@ -1,8 +1,8 @@
 import {fabric} from "fabric";
 
-// Extended fabric line class for passes
-fabric.PassLineArrow = fabric.util.createClass(fabric.Line, {
-    type: 'passLineArrow',
+// Dotted line arrow for running paths
+fabric.DottedLineArrow = fabric.util.createClass(fabric.Line, {
+    type: 'dottedLineArrow',
 
     initialize: function(element, options) {
         options || (options = {});
@@ -14,7 +14,10 @@ fabric.PassLineArrow = fabric.util.createClass(fabric.Line, {
     },
 
     _render: function(ctx) {
+        // Set line dash for dotted effect
+        ctx.setLineDash([5, 5]);
         this.callSuper('_render', ctx);
+        ctx.setLineDash([]); // Reset line dash
 
         // do not render if width/height are zeros or object is not visible
         if (this.width === 0 || this.height === 0 || !this.visible) return;
@@ -29,12 +32,12 @@ fabric.PassLineArrow = fabric.util.createClass(fabric.Line, {
         ctx.rotate(angle);
 
         // Arrow size relative to stroke width
-        const arrowWidth = this.strokeWidth * 4; // Adjust the multiplier to scale arrow size
-        const arrowLength = this.strokeWidth * 4; // Adjust the multiplier to scale arrow length
+        const arrowWidth = this.strokeWidth * 4;
+        const arrowLength = this.strokeWidth * 4;
 
         // Draw arrowhead
         ctx.beginPath();
-        ctx.moveTo(10, 0); // Start at the end of the line
+        ctx.moveTo(10, 0);
         ctx.lineTo(-arrowLength, arrowWidth / 2);
         ctx.lineTo(-arrowLength, -arrowWidth / 2);
         ctx.closePath();
@@ -46,8 +49,8 @@ fabric.PassLineArrow = fabric.util.createClass(fabric.Line, {
     }
 });
 
-fabric.PassLineArrow.fromObject = function(object, callback) {
-    callback && callback(new fabric.PassLineArrow([object.x1, object.y1, object.x2, object.y2], object));
+fabric.DottedLineArrow.fromObject = function(object, callback) {
+    callback && callback(new fabric.DottedLineArrow([object.x1, object.y1, object.x2, object.y2], object));
 };
 
-fabric.PassLineArrow.async = true;
+fabric.DottedLineArrow.async = true;

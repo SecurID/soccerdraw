@@ -1,11 +1,13 @@
 import {fabric} from "fabric";
 
-// Extended fabric line class for passes
-fabric.PassLineArrow = fabric.util.createClass(fabric.Line, {
-    type: 'passLineArrow',
+// Bold line arrow for shooting
+fabric.BoldLineArrow = fabric.util.createClass(fabric.Line, {
+    type: 'boldLineArrow',
 
     initialize: function(element, options) {
         options || (options = {});
+        // Make the stroke width 3x thicker for bold effect
+        options.strokeWidth = (options.strokeWidth || 2) * 3;
         this.callSuper('initialize', element, options);
     },
 
@@ -28,13 +30,13 @@ fabric.PassLineArrow = fabric.util.createClass(fabric.Line, {
         ctx.translate((this.x2 - this.x1) / 2, (this.y2 - this.y1) / 2);
         ctx.rotate(angle);
 
-        // Arrow size relative to stroke width
-        const arrowWidth = this.strokeWidth * 4; // Adjust the multiplier to scale arrow size
-        const arrowLength = this.strokeWidth * 4; // Adjust the multiplier to scale arrow length
+        // Arrow size relative to stroke width (larger for bold arrow)
+        const arrowWidth = this.strokeWidth * 2;
+        const arrowLength = this.strokeWidth * 2;
 
         // Draw arrowhead
         ctx.beginPath();
-        ctx.moveTo(10, 0); // Start at the end of the line
+        ctx.moveTo(10, 0);
         ctx.lineTo(-arrowLength, arrowWidth / 2);
         ctx.lineTo(-arrowLength, -arrowWidth / 2);
         ctx.closePath();
@@ -46,8 +48,8 @@ fabric.PassLineArrow = fabric.util.createClass(fabric.Line, {
     }
 });
 
-fabric.PassLineArrow.fromObject = function(object, callback) {
-    callback && callback(new fabric.PassLineArrow([object.x1, object.y1, object.x2, object.y2], object));
+fabric.BoldLineArrow.fromObject = function(object, callback) {
+    callback && callback(new fabric.BoldLineArrow([object.x1, object.y1, object.x2, object.y2], object));
 };
 
-fabric.PassLineArrow.async = true;
+fabric.BoldLineArrow.async = true;
